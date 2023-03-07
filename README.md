@@ -22,3 +22,12 @@
 - Kustuta olemasolev *scheme* ja vali *Autocreate Schemes Now*
 - See peaks probleemi lahendama
 <img width="1579" alt="Screenshot 2023-03-07 at 13 56 10" src="https://user-images.githubusercontent.com/70939481/223416319-5df9c548-66c8-43b3-bd07-7d4a71665e90.png">
+
+**Mobiiliseadmes testimine**
+
+- Ühenda mobiiliseade oma arvutiga
+- Luba telefonis "Developer mode": Settings -> Privacy&Security -> Developer mode ON ja tee seadmele restart 
+- Jälgi Xcode's juhiseid, see juhatab sind sammudena läbi
+- Luba telefoni seadmetes developer: Settings -> General -> Device Management
+
+<img width="822" alt="Screenshot 2023-03-07 at 17 22 18" src="https://user-images.githubusercontent.com/70939481/223467148-5df9da6a-f3f4-4e8c-bf52-e18f8d57770b.png">
