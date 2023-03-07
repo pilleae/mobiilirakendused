@@ -1,0 +1,9 @@
+**hw #1**
+
+Kõike aeganõudvam oli Xcode installimisel see, et see eeldab suhteliselt värsket macOSi versiooni, aga ma pole nende uuendamisel eriti aktiivne.
+Seega pidin alustuseks värskendama oma seadmete operatsioonisüsteemid.
+Easi läks setup lihtsalt. Xcode on väga visuaalne ja lihtsasti kasutatav arenduskeskkond. Tegin esimeseks minirakenduseks Toggle Hearti, mis klikkides muudav värvi
+ja long pressiga läheb suuremaks-värskemaks. Eeldab suhteliselt vähe koodi ja on lihtsasti arusaadav. Kuigi mul eelnev kogemus Swifti ja SwiftUIga puudub, siis
+tundub, et see on pigem lihtsasti õpitav ja suhteliselt mugav.
+
+Apple seadmed on turvalised ja seega pean ajama näpuga järge, et oleksid olemas kõik vastavad õigused. Muus osas on setup lihtne ja ei tohiks võtta rohkem kui 30 minutit. 
