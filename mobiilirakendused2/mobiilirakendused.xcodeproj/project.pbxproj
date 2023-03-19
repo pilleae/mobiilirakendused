@@ -14,6 +14,7 @@
 		3A25BCAC29B754C3005F7823 /* mobiilirakendusedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A25BCAB29B754C3005F7823 /* mobiilirakendusedTests.swift */; };
 		3A25BCB629B754C3005F7823 /* mobiilirakendusedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A25BCB529B754C3005F7823 /* mobiilirakendusedUITests.swift */; };
 		3A25BCB829B754C3005F7823 /* mobiilirakendusedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A25BCB729B754C3005F7823 /* mobiilirakendusedUITestsLaunchTests.swift */; };
+		3A5DF72129C476F0004CEF89 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5DF72029C476F0004CEF89 /* ImagePickerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,8 @@
 		3A25BCB129B754C3005F7823 /* mobiilirakendusedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mobiilirakendusedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A25BCB529B754C3005F7823 /* mobiilirakendusedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mobiilirakendusedUITests.swift; sourceTree = "<group>"; };
 		3A25BCB729B754C3005F7823 /* mobiilirakendusedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mobiilirakendusedUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3A5DF72029C476F0004CEF89 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		3A5DF72429C48879004CEF89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +99,9 @@
 			children = (
 				3A25BC9A29B754BF005F7823 /* mobiilirakendusedApp.swift */,
 				3A25BC9C29B754BF005F7823 /* ContentView.swift */,
+				3A5DF72029C476F0004CEF89 /* ImagePickerView.swift */,
 				3A25BC9E29B754C3005F7823 /* Assets.xcassets */,
+				3A5DF72429C48879004CEF89 /* Info.plist */,
 				3A25BCA029B754C3005F7823 /* Preview Content */,
 			);
 			path = mobiilirakendused;
@@ -258,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A25BC9D29B754BF005F7823 /* ContentView.swift in Sources */,
+				3A5DF72129C476F0004CEF89 /* ImagePickerView.swift in Sources */,
 				3A25BC9B29B754BF005F7823 /* mobiilirakendusedApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -417,8 +423,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"mobiilirakendused/Preview Content\"";
+				DEVELOPMENT_TEAM = 64QYKLGK8J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = mobiilirakendused/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs access to the camera to take photos for mood tracking.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -445,8 +454,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"mobiilirakendused/Preview Content\"";
+				DEVELOPMENT_TEAM = 64QYKLGK8J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = mobiilirakendused/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs access to the camera to take photos for mood tracking.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
