@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E738BF029E3F55300D34543 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E738BEF29E3F55300D34543 /* SettingsView.swift */; };
 		3A25BC9B29B754BF005F7823 /* mobiilirakendusedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A25BC9A29B754BF005F7823 /* mobiilirakendusedApp.swift */; };
 		3A25BC9D29B754BF005F7823 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A25BC9C29B754BF005F7823 /* ContentView.swift */; };
 		3A25BC9F29B754C3005F7823 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A25BC9E29B754C3005F7823 /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E738BEF29E3F55300D34543 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3A25BC9729B754BF005F7823 /* mobiilirakendused.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mobiilirakendused.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A25BC9A29B754BF005F7823 /* mobiilirakendusedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mobiilirakendusedApp.swift; sourceTree = "<group>"; };
 		3A25BC9C29B754BF005F7823 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				3A25BC9E29B754C3005F7823 /* Assets.xcassets */,
 				3A5DF72429C48879004CEF89 /* Info.plist */,
 				3A25BCA029B754C3005F7823 /* Preview Content */,
+				0E738BEF29E3F55300D34543 /* SettingsView.swift */,
 			);
 			path = mobiilirakendused;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A25BC9D29B754BF005F7823 /* ContentView.swift in Sources */,
+				0E738BF029E3F55300D34543 /* SettingsView.swift in Sources */,
 				3A5DF72129C476F0004CEF89 /* ImagePickerView.swift in Sources */,
 				3A25BC9B29B754BF005F7823 /* mobiilirakendusedApp.swift in Sources */,
 			);

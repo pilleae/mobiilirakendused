@@ -114,7 +114,10 @@ struct ContentView: View {
                 Text("Mood History")
                 
             }
-            
+            SettingsView()
+                .tabItem {
+                    Label("Settings", systemImage: "gearshape.fill")
+                }
         }
        
     }
