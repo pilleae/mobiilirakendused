@@ -1,27 +1,173 @@
 import SwiftUI
 
 
+struct PersonalDataView: View {
+    @State private var name: String = ""
+    @State private var age: String = ""
+    @State private var wakingHours: String = ""
+    @State private var selectedTimePeriod: String = "AM"
+    
+    @AppStorage("name") var savedName: String = ""
+    @AppStorage("age") var savedAge: String = ""
+    @AppStorage("wakingHours") var savedWakingHours: String = ""
 
-struct Mood: Identifiable {
-    let id = UUID()
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("Name")
+                .font(.headline)
+            
+            TextField("", text: $name)
+                .textFieldStyle(PlainTextFieldStyle())
+                .padding()
+                .background(Color.white)
+                .cornerRadius(10)
+                .shadow(radius: 3)
+
+            Text("Age")
+                .font(.headline)
+                .padding(.top)
+            
+            TextField("", text: $age)
+                .textFieldStyle(PlainTextFieldStyle())
+                .padding()
+                .background(Color.white)
+                .cornerRadius(10)
+                .shadow(radius: 3)
+            
+            Text("Normal waking hours")
+                .font(.headline)
+                .padding(.top)
+
+            HStack {
+                TextField("", text: $wakingHours)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .keyboardType(.numberPad)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .shadow(radius: 3)
+
+                Picker("Time period", selection: $selectedTimePeriod) {
+                    Text("AM").tag("AM")
+                    Text("PM").tag("PM")
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .frame(maxWidth: 80)
+                .padding(.trailing)
+            }
+            .padding(.bottom)
+
+            Spacer()
+
+            Button(action: savePersonalData) {
+                HStack {
+                    Spacer()
+                    Text("Save")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                    Spacer()
+                }
+                .padding()
+                .background(Color.blue)
+                .cornerRadius(10)
+                .shadow(radius: 3)
+            }
+            .padding(.bottom)
+        }
+        .padding()
+        .navigationTitle("Personal Data")
+        .onAppear {
+            loadPersonalData()
+        }
+    }
+    
+    private func savePersonalData() {
+        savedName = name
+        savedAge = age
+        savedWakingHours = wakingHours + " " + selectedTimePeriod
+    }
+    
+    private func loadPersonalData() {
+        name = savedName
+        age = savedAge
+        let parts = savedWakingHours.split(separator: " ")
+        if parts.count == 2 {
+            wakingHours = String(parts[0])
+            selectedTimePeriod = String(parts[1])
+        }
+    }
+}
+
+
+class Mood: Identifiable, Codable {
+    let id: UUID
     let mood: String
+    let activity: String
     let image: UIImage?
     let date: Date
+        
+    var formattedDate: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy"
+        return formatter.string(from: date)
+    }
+    
+    init(mood: String, activity: String, image: UIImage?, date: Date) {
+        self.id = UUID()
+        self.mood = mood
+        self.activity = activity
+        self.image = image
+        self.date = date
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(mood, forKey: .mood)
+        try container.encode(activity, forKey: .activity)
+        try container.encode(date, forKey: .date)
+        
+        if let image = image, let imageData = image.pngData() {
+            try container.encode(imageData, forKey: .image)
+        }
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(UUID.self, forKey: .id)
+        mood = try container.decode(String.self, forKey: .mood)
+        activity = try container.decode(String.self, forKey: .activity)
+        date = try container.decode(Date.self, forKey: .date)
+        
+        if let imageData = try container.decodeIfPresent(Data.self, forKey: .image) {
+            image = UIImage(data: imageData)
+        } else {
+            image = nil
+        }
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+        case id, mood, activity, image, date
+    }
 }
 
 struct ContentView: View {
-    let moodColors = ["😄": Color.green, "😊": Color.yellow, "😔": Color.gray, "😢": Color.blue, "🚀": Color.pink, "👍": Color.orange," 🤯": Color.gray, "🤪": Color.purple ]
+    let moodColors = ["😄": Color.green, "😊": Color.yellow, "😔": Color.gray, "😢": Color.blue, "🤯": Color.pink, "👍": Color.orange ]
+    let activityTypes = ["Work", "Leisure", "Exercise", "Other"]
     @State var selectedMood = ""
+    @State var selectedActivityType = ""
     @State var moodHistory: [Mood] = []
     @State var showImagePicker = false
+    
+   
     
     let columns = [
         GridItem(.flexible(), spacing: 16),
         GridItem(.flexible(), spacing: 16)
-        //GridItem(.flexible(), spacing: 16)
     ]
     
-
+    
     
     var body: some View {
         TabView {
@@ -51,6 +197,13 @@ struct ContentView: View {
                 }
                 .padding(.bottom, 50)
                 
+                Picker("Activity Type", selection: $selectedActivityType) {
+                    ForEach(activityTypes, id: \.self) {
+                        Text($0)
+                    }
+                }
+                .padding()
+                
                 
                 Button(action: {
                     self.showImagePicker = true
@@ -63,7 +216,7 @@ struct ContentView: View {
                 }
                 .sheet(isPresented: $showImagePicker) {
                     ImagePickerView(onImageSelected: { image in
-                        self.saveMood(withImage: image)
+                        self.saveMood(withImage: image, activity: "Work")
                         self.showImagePicker = false
                     })
                 }
@@ -87,7 +240,9 @@ struct ContentView: View {
                                             .aspectRatio(contentMode: .fit)
                                             .frame(width: 50, height: 50)
                                     }
-                                    Text("\(mood.date)")
+                                    Text("\(mood.activity)")
+                                        .font(.system(size: 12))
+                                    Text("\(mood.formattedDate)")
                                         .font(.system(size: 12))
                                 }
                                 .padding(4)
@@ -115,6 +270,12 @@ struct ContentView: View {
                 
             }
             
+            PersonalDataView()
+               .tabItem {
+                   Image(systemName: "person.fill")
+                   Text("Personal Data")
+               }
+            
         }
        
     }
@@ -125,13 +286,18 @@ struct ContentView: View {
             moodHistory.remove(at: index)
         }
     }
-    
-    func saveMood(withImage image: UIImage?) {
-        let newMood = Mood(mood: selectedMood, image: image, date: Date())
+
+    func saveMood(withImage image: UIImage?, activity: String) {
+        let newMood = Mood(mood: selectedMood, activity: activity, image: image, date: Date())
         moodHistory.append(newMood)
         selectedMood = ""
+        
+        // Save the new mood to UserDefaults
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(moodHistory) {
+            UserDefaults.standard.set(encoded, forKey: "moodHistory")
+        }
     }
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
@@ -139,3 +305,4 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 }
+
