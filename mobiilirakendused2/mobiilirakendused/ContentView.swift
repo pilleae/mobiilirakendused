@@ -167,7 +167,16 @@ struct ContentView: View {
         GridItem(.flexible(), spacing: 16)
     ]
     
-    
+    init() {
+        if let data = UserDefaults.standard.data(forKey: "moodHistory") {
+            let decoder = JSONDecoder()
+            if let savedMoodHistory = try? decoder.decode([Mood].self, from: data) {
+                self._moodHistory = State(initialValue: savedMoodHistory)
+            }
+        } else {
+            self._moodHistory = State(initialValue: [])
+        }
+    }
     
     var body: some View {
         TabView {
@@ -216,7 +225,7 @@ struct ContentView: View {
                 }
                 .sheet(isPresented: $showImagePicker) {
                     ImagePickerView(onImageSelected: { image in
-                        self.saveMood(withImage: image, activity: "Work")
+                        self.saveMood(withImage: image, activity: selectedActivityType)
                         self.showImagePicker = false
                     })
                 }
@@ -298,6 +307,8 @@ struct ContentView: View {
             UserDefaults.standard.set(encoded, forKey: "moodHistory")
         }
     }
+    
+    
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
