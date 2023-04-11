@@ -104,6 +104,7 @@ class Mood: Identifiable, Codable {
     let id: UUID
     let mood: String
     let activity: String
+    let personWith: String
     let image: UIImage?
     let date: Date
         
@@ -113,10 +114,11 @@ class Mood: Identifiable, Codable {
         return formatter.string(from: date)
     }
     
-    init(mood: String, activity: String, image: UIImage?, date: Date) {
+    init(mood: String, activity: String, personWith: String, image: UIImage?, date: Date) {
         self.id = UUID()
         self.mood = mood
         self.activity = activity
+        self.personWith = personWith
         self.image = image
         self.date = date
     }
@@ -126,6 +128,7 @@ class Mood: Identifiable, Codable {
         try container.encode(id, forKey: .id)
         try container.encode(mood, forKey: .mood)
         try container.encode(activity, forKey: .activity)
+        try container.encode(personWith, forKey: .personWith)
         try container.encode(date, forKey: .date)
         
         if let image = image, let imageData = image.pngData() {
@@ -138,6 +141,7 @@ class Mood: Identifiable, Codable {
         id = try container.decode(UUID.self, forKey: .id)
         mood = try container.decode(String.self, forKey: .mood)
         activity = try container.decode(String.self, forKey: .activity)
+        personWith = try container.decode(String.self, forKey: .personWith)
         date = try container.decode(Date.self, forKey: .date)
         
         if let imageData = try container.decodeIfPresent(Data.self, forKey: .image) {
@@ -148,15 +152,17 @@ class Mood: Identifiable, Codable {
     }
     
     private enum CodingKeys: String, CodingKey {
-        case id, mood, activity, image, date
+        case id, mood, activity, personWith, image, date
     }
 }
 
 struct ContentView: View {
     let moodColors = ["😄": Color.green, "😊": Color.yellow, "😔": Color.gray, "😢": Color.blue, "🤯": Color.pink, "👍": Color.orange ]
     let activityTypes = ["Work", "Leisure", "Exercise", "Other"]
+    let persons = ["Mari", "Peeter", "Taavi", "Aivo"]
     @State var selectedMood = ""
     @State var selectedActivityType = ""
+    @State var selectedPerson = ""
     @State var moodHistory: [Mood] = []
     @State var showImagePicker = false
     
@@ -180,13 +186,18 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            
             VStack {
-                
+                Text("How are you feeling?")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.gray)
+                    .bold()
+                    .padding(.top, 50.0)
+                    .padding(.vertical, 50.0)
                 Spacer()
                 Text(selectedMood)
-                    .font(.system(size: 80))
-                    .padding()
+                    .font(.system(size: 70))
+                    .padding(0.0)
                 Spacer()
                 LazyVGrid(columns: columns, spacing: 16) {
                     ForEach(moodColors.keys.sorted(), id: \.self) { color in
@@ -197,22 +208,30 @@ struct ContentView: View {
                                 RoundedRectangle(cornerRadius: 10)
                                     .foregroundColor(moodColors[color])
                                 Text(color)
-                                    .font(.system(size: 50))
+                                    .font(.system(size: 55))
                                     .foregroundColor(.white)
                             }
-                            .frame(height: 100)
+                            .frame(height: 100.0)
                         }
                     }
                 }
-                .padding(.bottom, 50)
+                .padding([.leading, .bottom, .trailing], 16.0)
                 
-                Picker("Activity Type", selection: $selectedActivityType) {
-                    ForEach(activityTypes, id: \.self) {
-                        Text($0)
+                HStack {
+                    Picker("Activity Type", selection: $selectedActivityType) {
+                        ForEach(activityTypes, id: \.self) {
+                            Text($0)
+                        }
                     }
+                    .padding()
+                    
+                    Picker("Persons", selection: $selectedPerson) {
+                        ForEach(persons, id: \.self) {
+                            Text($0)
+                        }
+                    }
+                    .padding()
                 }
-                .padding()
-                
                 
                 Button(action: {
                     self.showImagePicker = true
@@ -223,9 +242,10 @@ struct ContentView: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
+                .padding(.bottom, 50.0)
                 .sheet(isPresented: $showImagePicker) {
                     ImagePickerView(onImageSelected: { image in
-                        self.saveMood(withImage: image, activity: selectedActivityType)
+                        self.saveMood(withImage: image, activity: selectedActivityType, personWith: selectedPerson)
                         self.showImagePicker = false
                     })
                 }
@@ -233,8 +253,8 @@ struct ContentView: View {
             .tabItem {
                 Image(systemName: "plus.circle.fill")
                 Text("New Mood")
-                
             }
+            
             VStack {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 16) {
@@ -250,6 +270,8 @@ struct ContentView: View {
                                             .frame(width: 50, height: 50)
                                     }
                                     Text("\(mood.activity)")
+                                        .font(.system(size: 12))
+                                    Text("\(mood.personWith)")
                                         .font(.system(size: 12))
                                     Text("\(mood.formattedDate)")
                                         .font(.system(size: 12))
@@ -296,8 +318,8 @@ struct ContentView: View {
         }
     }
 
-    func saveMood(withImage image: UIImage?, activity: String) {
-        let newMood = Mood(mood: selectedMood, activity: activity, image: image, date: Date())
+    func saveMood(withImage image: UIImage?, activity: String, personWith: String) {
+        let newMood = Mood(mood: selectedMood, activity: activity, personWith: selectedPerson, image: image, date: Date())
         moodHistory.append(newMood)
         selectedMood = ""
         
