@@ -58,6 +58,10 @@ class Mood: Identifiable, Codable {
     }
 }
 
+
+
+
+
 struct ContentView: View {
     let moodColors = ["😄": Color.green, "😊": Color.yellow, "😔": Color.gray, "😢": Color.blue, "🤯": Color.pink, "👍": Color.orange ]
     let activityTypes = ["Work", "Leisure", "Exercise", "Other"]
@@ -67,8 +71,8 @@ struct ContentView: View {
     @State var selectedPerson = ""
     @State var moodHistory: [Mood] = []
     @State var showImagePicker = false
+    @State private var isLoggedIn = false
     
-   
     
     let columns = [
         GridItem(.flexible(), spacing: 16),
@@ -87,6 +91,8 @@ struct ContentView: View {
     }
     
     var body: some View {
+        if isLoggedIn {
+        // Show rest of the app
         TabView {
             VStack {
                 Text("How are you feeling?")
@@ -214,9 +220,13 @@ struct ContentView: View {
                        Image(systemName: "person.2.fill")
                        Text("Users")
             }
+        
         }
-       
+        }else {
+            LoginView(isLoggedIn: $isLoggedIn)
+        }
     }
+        
     
     
     func deleteMood(_ mood: Mood) {
