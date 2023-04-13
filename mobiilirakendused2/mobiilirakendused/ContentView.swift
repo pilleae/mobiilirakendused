@@ -72,23 +72,36 @@ struct ContentView: View {
     @State var moodHistory: [Mood] = []
     @State var showImagePicker = false
     @State private var isLoggedIn = false
-    
-    
-    let columns = [
-        GridItem(.flexible(), spacing: 16),
-        GridItem(.flexible(), spacing: 16)
-    ]
-    
-    init() {
-        if let data = UserDefaults.standard.data(forKey: "moodHistory") {
-            let decoder = JSONDecoder()
-            if let savedMoodHistory = try? decoder.decode([Mood].self, from: data) {
-                self._moodHistory = State(initialValue: savedMoodHistory)
+    @AppStorage("moodHistory") var moodHistoryData: Data?
+        
+        
+        let columns = [
+            GridItem(.flexible(), spacing: 16),
+            GridItem(.flexible(), spacing: 16)
+        ]
+        
+        init() {
+            if let data = moodHistoryData {
+                let decoder = JSONDecoder()
+                if let savedMoodHistory = try? decoder.decode([Mood].self, from: data) {
+                    self._moodHistory = State(initialValue: savedMoodHistory)
+                }
+            } else {
+                self._moodHistory = State(initialValue: [])
             }
-        } else {
-            self._moodHistory = State(initialValue: [])
         }
-    }
+        
+        func saveMood(withImage image: UIImage?, activity: String, personWith: String) {
+            let mood = Mood(mood: selectedMood, activity: activity, personWith: personWith, image: image, date: Date())
+            self.moodHistory.append(mood)
+            if let encoded = try? JSONEncoder().encode(moodHistory) {
+                self.moodHistoryData = encoded
+            }
+        }
+        
+    
+    
+   
     
     var body: some View {
         if isLoggedIn {
@@ -235,18 +248,7 @@ struct ContentView: View {
         }
     }
 
-    func saveMood(withImage image: UIImage?, activity: String, personWith: String) {
-        let newMood = Mood(mood: selectedMood, activity: activity, personWith: selectedPerson, image: image, date: Date())
-        moodHistory.append(newMood)
-        selectedMood = ""
-        
-        // Save the new mood to UserDefaults
-        let encoder = JSONEncoder()
-        if let encoded = try? encoder.encode(moodHistory) {
-            UserDefaults.standard.set(encoded, forKey: "moodHistory")
-        }
-    }
-    
+  
     
 
 struct ContentView_Previews: PreviewProvider {
@@ -255,4 +257,3 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 }
-
