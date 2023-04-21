@@ -14,6 +14,8 @@
 		3A25BCAC29B754C3005F7823 /* mobiilirakendusedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A25BCAB29B754C3005F7823 /* mobiilirakendusedTests.swift */; };
 		3A25BCB629B754C3005F7823 /* mobiilirakendusedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A25BCB529B754C3005F7823 /* mobiilirakendusedUITests.swift */; };
 		3A25BCB829B754C3005F7823 /* mobiilirakendusedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A25BCB729B754C3005F7823 /* mobiilirakendusedUITestsLaunchTests.swift */; };
+		3A2F203E29F1715400C11504 /* MoodChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F203D29F1715400C11504 /* MoodChartsView.swift */; };
+		3A2F204129F1779000C11504 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 3A2F204029F1779000C11504 /* SwiftUICharts */; };
 		3A5DF72129C476F0004CEF89 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5DF72029C476F0004CEF89 /* ImagePickerView.swift */; };
 		3AD5579C29E72B90001484AB /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD5579B29E72B90001484AB /* UserListView.swift */; };
 		3AD5579E29E72BEA001484AB /* PersonalDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD5579D29E72BEA001484AB /* PersonalDataView.swift */; };
@@ -48,6 +50,7 @@
 		3A25BCB129B754C3005F7823 /* mobiilirakendusedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mobiilirakendusedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A25BCB529B754C3005F7823 /* mobiilirakendusedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mobiilirakendusedUITests.swift; sourceTree = "<group>"; };
 		3A25BCB729B754C3005F7823 /* mobiilirakendusedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mobiilirakendusedUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3A2F203D29F1715400C11504 /* MoodChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodChartsView.swift; sourceTree = "<group>"; };
 		3A5DF72029C476F0004CEF89 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		3A5DF72429C48879004CEF89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3AD5579B29E72B90001484AB /* UserListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
@@ -60,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A2F204129F1779000C11504 /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +109,7 @@
 			children = (
 				3A25BC9A29B754BF005F7823 /* mobiilirakendusedApp.swift */,
 				3A25BC9C29B754BF005F7823 /* ContentView.swift */,
+				3A2F203D29F1715400C11504 /* MoodChartsView.swift */,
 				3AD5579B29E72B90001484AB /* UserListView.swift */,
 				3AD5579D29E72BEA001484AB /* PersonalDataView.swift */,
 				3AD5579F29E72D29001484AB /* LoginView.swift */,
@@ -157,6 +162,9 @@
 			dependencies = (
 			);
 			name = mobiilirakendused;
+			packageProductDependencies = (
+				3A2F204029F1779000C11504 /* SwiftUICharts */,
+			);
 			productName = mobiilirakendused;
 			productReference = 3A25BC9729B754BF005F7823 /* mobiilirakendused.app */;
 			productType = "com.apple.product-type.application";
@@ -229,6 +237,9 @@
 				Base,
 			);
 			mainGroup = 3A25BC8E29B754BF005F7823;
+			packageReferences = (
+				3A2F203F29F1779000C11504 /* XCRemoteSwiftPackageReference "ChartView" */,
+			);
 			productRefGroup = 3A25BC9829B754BF005F7823 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -274,6 +285,7 @@
 				3AD557A029E72D29001484AB /* LoginView.swift in Sources */,
 				3A25BC9D29B754BF005F7823 /* ContentView.swift in Sources */,
 				3A5DF72129C476F0004CEF89 /* ImagePickerView.swift in Sources */,
+				3A2F203E29F1715400C11504 /* MoodChartsView.swift in Sources */,
 				3A25BC9B29B754BF005F7823 /* mobiilirakendusedApp.swift in Sources */,
 				3AD5579C29E72B90001484AB /* UserListView.swift in Sources */,
 				3AD5579E29E72BEA001484AB /* PersonalDataView.swift in Sources */,
@@ -603,6 +615,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3A2F203F29F1779000C11504 /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3A2F204029F1779000C11504 /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3A2F203F29F1779000C11504 /* XCRemoteSwiftPackageReference "ChartView" */;
+			productName = SwiftUICharts;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3A25BC8F29B754BF005F7823 /* Project object */;
 }

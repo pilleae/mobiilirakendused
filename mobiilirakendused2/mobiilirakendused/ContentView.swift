@@ -1,7 +1,5 @@
 import SwiftUI
 
-
-
 class Mood: Identifiable, Codable {
     let id: UUID
     let mood: String
@@ -58,10 +56,6 @@ class Mood: Identifiable, Codable {
     }
 }
 
-
-
-
-
 struct ContentView: View {
     let moodColors = ["😄": Color.green, "😊": Color.yellow, "😔": Color.gray, "😢": Color.blue, "🤯": Color.pink, "👍": Color.orange ]
     let activityTypes = ["Work", "Leisure", "Exercise", "Other"]
@@ -73,6 +67,9 @@ struct ContentView: View {
     @State var showImagePicker = false
     @State private var isLoggedIn = false
     @AppStorage("moodHistory") var moodHistoryData: Data?
+    
+   
+
         
         
         let columns = [
@@ -98,10 +95,7 @@ struct ContentView: View {
                 self.moodHistoryData = encoded
             }
         }
-        
-    
-    
-   
+//        
     
     var body: some View {
         if isLoggedIn {
@@ -233,6 +227,12 @@ struct ContentView: View {
                        Image(systemName: "person.2.fill")
                        Text("Users")
             }
+            
+            MoodChartsView(moodHistory: moodHistory)
+                                .tabItem {
+                                    Image(systemName: "chart.pie.fill")
+                                    Text("Chart")
+                                }
         
         }
         }else {
