@@ -23,6 +23,8 @@ class Mood: Identifiable, Codable {
         self.date = date
     }
     
+    
+    // encodes the mood object as JSON.
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
@@ -36,6 +38,7 @@ class Mood: Identifiable, Codable {
         }
     }
     
+    //decodes a mood object from JSON.
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(UUID.self, forKey: .id)
@@ -51,6 +54,7 @@ class Mood: Identifiable, Codable {
         }
     }
     
+    //defines the coding keys for encoding and decoding
     private enum CodingKeys: String, CodingKey {
         case id, mood, activity, personWith, image, date
     }
@@ -66,6 +70,8 @@ struct ContentView: View {
     @State var moodHistory: [Mood] = []
     @State var showImagePicker = false
     @State private var isLoggedIn = false
+    
+    //app storage for the mood history data
     @AppStorage("moodHistory") var moodHistoryData: Data?
     
    
@@ -77,6 +83,8 @@ struct ContentView: View {
             GridItem(.flexible(), spacing: 16)
         ]
         
+    
+        //checks if any saved mood history data, then decodes it, and assigns it to a State variable. If no saved data, it initializes an empty array as the initial value.
         init() {
             if let data = moodHistoryData {
                 let decoder = JSONDecoder()
@@ -88,6 +96,7 @@ struct ContentView: View {
             }
         }
         
+        //creates new Mood object using the selectedMood, activity, personWith, image, date. Appends it to the moodHistory array and encodes to JSON. Encoded data is stored in the moodHistoryData property using @AppStorage.
         func saveMood(withImage image: UIImage?, activity: String, personWith: String) {
             let mood = Mood(mood: selectedMood, activity: activity, personWith: personWith, image: image, date: Date())
             self.moodHistory.append(mood)

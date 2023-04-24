@@ -40,7 +40,7 @@ struct UserListView: View {
         }
     }
 
-    // Fetches the list of users from the external API and updates the state with the response
+    // Fetches the list of users from API and updates the state with the response
     private func loadUsers() {
         guard let url = URL(string: "https://reqres.in/api/users?page=2") else {
             return
