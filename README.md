@@ -39,10 +39,11 @@ Mood Tracker is an iOS application that allows users to track their mood over ti
 **License**
 The Mood Tracker application is released under the MIT License. ([[https://apps.apple.com/us/app/xcode/id497799835?mt=12](https://opensource.org/licenses/MIT)])
 
-
-![IMG_1651](https://github.com/pilleae/mobiilirakendused/assets/70939481/24b4c318-ad5f-408c-94e4-c7325ca4a179)
-![IMG_1652](https://github.com/pilleae/mobiilirakendused/assets/70939481/91823a35-74e7-4889-a30e-82775096aa53)
-![IMG_1647](https://github.com/pilleae/mobiilirakendused/assets/70939481/61512aab-7f96-4242-8ef4-0e4e4b403945)
-![IMG_1648](https://github.com/pilleae/mobiilirakendused/assets/70939481/8b7297e1-42d6-4177-9747-30bcfbd14a22)
+![IMG_1647](https://github.com/pilleae/mobiilirakendused/assets/70939481/56bb4b76-35c3-4381-8e48-0de705726c81)
+![IMG_1649 (1)](https://github.com/pilleae/mobiilirakendused/assets/70939481/7b18b6aa-972f-42e6-bce4-0036d9c02810)
+![IMG_1651](https://github.com/pilleae/mobiilirakendused/assets/70939481/a700ac9c-c901-4e4e-bcf3-eefd297108d7)
+![IMG_1652](https://github.com/pilleae/mobiilirakendused/assets/70939481/2fab8532-a9eb-48bb-bafa-8181a675214d)
+![IMG_1648 (3) (1)](https://github.com/pilleae/mobiilirakendused/assets/70939481/05bf52bf-1291-4281-8959-e6ecf79fb4af)
+![IMG_1650 (1)](https://github.com/pilleae/mobiilirakendused/assets/70939481/698bf6d4-16a9-4528-8890-4f66c85d1244)
 
 
