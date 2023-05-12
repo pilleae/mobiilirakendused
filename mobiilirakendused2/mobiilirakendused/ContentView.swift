@@ -3,8 +3,6 @@ import SwiftUI
 class Mood: Identifiable, Codable {
     let id: UUID
     let mood: String
-    let activity: String
-    let personWith: String
     let image: UIImage?
     let date: Date
         
@@ -14,11 +12,11 @@ class Mood: Identifiable, Codable {
         return formatter.string(from: date)
     }
     
-    init(mood: String, activity: String, personWith: String, image: UIImage?, date: Date) {
+    init(mood: String, image: UIImage?, date: Date) {
         self.id = UUID()
         self.mood = mood
-        self.activity = activity
-        self.personWith = personWith
+      
+       
         self.image = image
         self.date = date
     }
@@ -29,8 +27,7 @@ class Mood: Identifiable, Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(mood, forKey: .mood)
-        try container.encode(activity, forKey: .activity)
-        try container.encode(personWith, forKey: .personWith)
+       
         try container.encode(date, forKey: .date)
         
         if let image = image, let imageData = image.pngData() {
@@ -43,8 +40,7 @@ class Mood: Identifiable, Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(UUID.self, forKey: .id)
         mood = try container.decode(String.self, forKey: .mood)
-        activity = try container.decode(String.self, forKey: .activity)
-        personWith = try container.decode(String.self, forKey: .personWith)
+
         date = try container.decode(Date.self, forKey: .date)
         
         if let imageData = try container.decodeIfPresent(Data.self, forKey: .image) {
@@ -56,22 +52,19 @@ class Mood: Identifiable, Codable {
     
     //defines the coding keys for encoding and decoding
     private enum CodingKeys: String, CodingKey {
-        case id, mood, activity, personWith, image, date
+        case id, mood, image, date
     }
 }
 
 struct ContentView: View {
     let moodColors = ["😄": Color.green, "😊": Color.yellow, "😔": Color.gray, "😢": Color.blue, "🤯": Color.pink, "👍": Color.orange ]
-    let activityTypes = ["Work", "Leisure", "Exercise", "Other"]
-    let persons = ["Mari", "Peeter", "Taavi", "Aivo"]
+    
     @State var selectedMood = ""
-    @State var selectedActivityType = ""
-    @State var selectedPerson = ""
     @State var moodHistory: [Mood] = []
     @State var showImagePicker = false
     @State private var isLoggedIn = false
     
-    //app storage for the mood history data
+    //appstorage wrapper for the mood history data
     @AppStorage("moodHistory") var moodHistoryData: Data?
     
    
@@ -96,9 +89,9 @@ struct ContentView: View {
             }
         }
         
-        //creates new Mood object using the selectedMood, activity, personWith, image, date. Appends it to the moodHistory array and encodes to JSON. Encoded data is stored in the moodHistoryData property using @AppStorage.
-        func saveMood(withImage image: UIImage?, activity: String, personWith: String) {
-            let mood = Mood(mood: selectedMood, activity: activity, personWith: personWith, image: image, date: Date())
+        //creates new Mood object using the selectedMood, image, date. Appends it to the moodHistory array and encodes to JSON. Encoded data is stored in the moodHistoryData property using @AppStorage.
+        func saveMood(withImage image: UIImage?) {
+            let mood = Mood(mood: selectedMood, image: image, date: Date())
             self.moodHistory.append(mood)
             if let encoded = try? JSONEncoder().encode(moodHistory) {
                 self.moodHistoryData = encoded
@@ -116,7 +109,7 @@ struct ContentView: View {
                     .fontWeight(.bold)
                     .foregroundColor(Color.gray)
                     .bold()
-                    .padding(.top, 50.0)
+                    .padding(.top, 20.0)
                     .padding(.vertical, 50.0)
                 Spacer()
                 Text(selectedMood)
@@ -139,23 +132,9 @@ struct ContentView: View {
                         }
                     }
                 }
-                .padding([.leading, .bottom, .trailing], 16.0)
+                .padding([.leading, .bottom, .trailing], 25.0)
                 
-                HStack {
-                    Picker("Activity Type", selection: $selectedActivityType) {
-                        ForEach(activityTypes, id: \.self) {
-                            Text($0)
-                        }
-                    }
-                    .padding()
-                    
-                    Picker("Persons", selection: $selectedPerson) {
-                        ForEach(persons, id: \.self) {
-                            Text($0)
-                        }
-                    }
-                    .padding()
-                }
+    
                 
                 Button(action: {
                     self.showImagePicker = true
@@ -169,7 +148,7 @@ struct ContentView: View {
                 .padding(.bottom, 50.0)
                 .sheet(isPresented: $showImagePicker) {
                     ImagePickerView(onImageSelected: { image in
-                        self.saveMood(withImage: image, activity: selectedActivityType, personWith: selectedPerson)
+                        self.saveMood(withImage: image)
                         self.showImagePicker = false
                     })
                 }
@@ -193,10 +172,8 @@ struct ContentView: View {
                                             .aspectRatio(contentMode: .fit)
                                             .frame(width: 50, height: 50)
                                     }
-                                    Text("\(mood.activity)")
-                                        .font(.system(size: 12))
-                                    Text("\(mood.personWith)")
-                                        .font(.system(size: 12))
+                                    
+                                       
                                     Text("\(mood.formattedDate)")
                                         .font(.system(size: 12))
                                 }
@@ -230,18 +207,12 @@ struct ContentView: View {
                    Image(systemName: "person.fill")
                    Text("Personal Data")
                }
-            UserListView()
-                   .navigationTitle("Users")
-                   .tabItem {
-                       Image(systemName: "person.2.fill")
-                       Text("Users")
-            }
             
             MoodChartsView(moodHistory: moodHistory)
-                                .tabItem {
-                                    Image(systemName: "chart.pie.fill")
-                                    Text("Chart")
-                                }
+                .tabItem {
+                    Image(systemName: "chart.line.uptrend.xyaxis")
+                    Text("Summary")
+                }
         
         }
         }else {

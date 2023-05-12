@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+import UserNotifications
+
 
 struct PersonalDataView: View {
     
@@ -96,9 +98,47 @@ struct PersonalDataView: View {
     private func savePersonalData() {
         savedName = name
         savedAge = age
-        savedWakingHours = wakingHours + " " + selectedTimePeriod
+        
+        let calendar = Calendar.current
+        
+        // Parse waking hours from input
+        let parts = wakingHours.split(separator: ":")
+        guard parts.count == 2, let hour = Int(parts[0]), let minute = Int(parts[1]) else {
+            return
+        }
+        
+        // Determine the date of the next waking time
+        var dateComponents = DateComponents()
+        dateComponents.hour = selectedTimePeriod == "AM" ? hour : hour + 12
+        dateComponents.minute = minute
+        let today = Date()
+        let nextWakingTime = calendar.nextDate(after: today, matching: dateComponents, matchingPolicy: .nextTime)!
+        
+        // Determine bedtime based on average waking hours of 14 hours
+        let bedtime = calendar.date(byAdding: .hour, value: 14, to: nextWakingTime)!
+        
+        // Schedule notifications for waking hours until bedtime
+        let content = UNMutableNotificationContent()
+        content.title = "How are you feeling?"
+        content.body = "Don't forget to add your mood to the app."
+        content.sound = .default
+        
+        let dateInterval = DateInterval(start: nextWakingTime, end: bedtime)
+        _ = dateInterval // Ignoring the warning
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1 * 60, repeats: true)//600 is for 10 minutes
+        let request = UNNotificationRequest(identifier: "moodReminder", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        
+        // Cancel all notifications at bedtime
+        let bedtimeComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: bedtime)
+        let bedtimeTrigger = UNCalendarNotificationTrigger(dateMatching: bedtimeComponents, repeats: false)
+        let bedtimeRequest = UNNotificationRequest(identifier: "bedtimeReminder", content: content, trigger: bedtimeTrigger)
+        UNUserNotificationCenter.current().add(bedtimeRequest, withCompletionHandler: nil)
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["moodReminder"])
     }
-    
+
+
+    //load data
     private func loadPersonalData() {
         name = savedName
         age = savedAge

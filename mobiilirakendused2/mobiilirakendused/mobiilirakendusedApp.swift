@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct mobiilirakendusedApp: App {
+    @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     var body: some Scene {
         WindowGroup {
             ContentView()
+            
         }
     }
 }
