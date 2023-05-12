@@ -38,3 +38,11 @@ Mood Tracker is an iOS application that allows users to track their mood over ti
 
 **License**
 The Mood Tracker application is released under the MIT License. ([[https://apps.apple.com/us/app/xcode/id497799835?mt=12](https://opensource.org/licenses/MIT)])
+
+
+![IMG_1651](https://github.com/pilleae/mobiilirakendused/assets/70939481/24b4c318-ad5f-408c-94e4-c7325ca4a179)
+![IMG_1652](https://github.com/pilleae/mobiilirakendused/assets/70939481/91823a35-74e7-4889-a30e-82775096aa53)
+![IMG_1647](https://github.com/pilleae/mobiilirakendused/assets/70939481/61512aab-7f96-4242-8ef4-0e4e4b403945)
+![IMG_1648](https://github.com/pilleae/mobiilirakendused/assets/70939481/8b7297e1-42d6-4177-9747-30bcfbd14a22)
+
+
