@@ -21,7 +21,7 @@ struct PersonalDataView: View {
     @AppStorage("name") var savedName: String = ""
     @AppStorage("age") var savedAge: String = ""
     @AppStorage("wakingHours") var savedWakingHours: String = ""
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("Name")
@@ -33,7 +33,7 @@ struct PersonalDataView: View {
                 .background(Color.white)
                 .cornerRadius(10)
                 .shadow(radius: 3)
-
+            
             Text("Age")
                 .font(.headline)
                 .padding(.top)
@@ -48,7 +48,7 @@ struct PersonalDataView: View {
             Text("Normal waking hours")
                 .font(.headline)
                 .padding(.top)
-
+            
             HStack {
                 TextField("", text: $wakingHours)
                     .textFieldStyle(PlainTextFieldStyle())
@@ -58,7 +58,7 @@ struct PersonalDataView: View {
                     .background(Color.white)
                     .cornerRadius(10)
                     .shadow(radius: 3)
-
+                
                 Picker("Time period", selection: $selectedTimePeriod) {
                     Text("AM").tag("AM")
                     Text("PM").tag("PM")
@@ -68,9 +68,9 @@ struct PersonalDataView: View {
                 .padding(.trailing)
             }
             .padding(.bottom)
-
+            
             Spacer()
-
+            
             Button(action: savePersonalData) {
                 HStack {
                     Spacer()
@@ -136,8 +136,8 @@ struct PersonalDataView: View {
         UNUserNotificationCenter.current().add(bedtimeRequest, withCompletionHandler: nil)
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["moodReminder"])
     }
-
-
+    
+    
     //load data
     private func loadPersonalData() {
         name = savedName

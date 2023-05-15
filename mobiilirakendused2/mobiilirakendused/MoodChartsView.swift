@@ -38,17 +38,17 @@ struct MoodChartsView: View {
         }
         
         // Computes the count of each mood for today's entries
-                let todayMoodCount = moodHistory.filter { mood in
-                    let date = Calendar.current.component(.day, from: mood.date)
-                    let month = Calendar.current.component(.month, from: mood.date)
-                    let year = Calendar.current.component(.year, from: mood.date)
-                    let currentDay = Calendar.current.component(.day, from: Date())
-                    let currentMonth = Calendar.current.component(.month, from: Date())
-                    let currentYear = Calendar.current.component(.year, from: Date())
-                    return date == currentDay && month == currentMonth && year == currentYear
-                }.reduce(into: [:]) { counts, mood in
-                    counts[mood.mood, default: 0] += 1
-                }
+        let todayMoodCount = moodHistory.filter { mood in
+            let date = Calendar.current.component(.day, from: mood.date)
+            let month = Calendar.current.component(.month, from: mood.date)
+            let year = Calendar.current.component(.year, from: mood.date)
+            let currentDay = Calendar.current.component(.day, from: Date())
+            let currentMonth = Calendar.current.component(.month, from: Date())
+            let currentYear = Calendar.current.component(.year, from: Date())
+            return date == currentDay && month == currentMonth && year == currentYear
+        }.reduce(into: [:]) { counts, mood in
+            counts[mood.mood, default: 0] += 1
+        }
         
         
         ScrollView {
@@ -57,8 +57,8 @@ struct MoodChartsView: View {
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(Color.gray)
-                    
-
+                
+                
                 // Displays the pie chart of mood distribution for all entries
                 VStack{
                     Text("All Time Entries")
@@ -67,7 +67,7 @@ struct MoodChartsView: View {
                     PieChart(data: allMoodCount.map { ($0.key, Double($0.value)) }, colors: moodColors)
                         .frame(width: 300, height: 300)
                     Spacer()
-
+                    
                     // Displays the mood labels
                     HStack(spacing: 10) {
                         ForEach(moodEmojis.keys.sorted(), id: \.self) { mood in
@@ -80,9 +80,9 @@ struct MoodChartsView: View {
                             }
                         }
                     }
-
+                    
                     Spacer()
-
+                    
                 }
                 // Displays the pie chart of mood distribution for this months entries
                 VStack{
@@ -92,7 +92,7 @@ struct MoodChartsView: View {
                     PieChart(data: thisMonthMoodCount.map { ($0.key, Double($0.value)) }, colors: moodColors)
                         .frame(width: 300, height: 300)
                     Spacer()
-
+                    
                     // Displays the mood labels
                     HStack(spacing: 10) {
                         ForEach(moodEmojis.keys.sorted(), id: \.self) { mood in
@@ -105,11 +105,11 @@ struct MoodChartsView: View {
                             }
                         }
                     }
-
+                    
                     Spacer()
-
+                    
                 }
-
+                
                 // Displays the pie chart of mood distribution for today's entries
                 VStack{
                     Text("Today's Entries")
@@ -118,7 +118,7 @@ struct MoodChartsView: View {
                     PieChart(data: todayMoodCount.map { ($0.key, Double($0.value)) }, colors: moodColors)
                         .frame(width: 300, height: 300)
                     Spacer()
-
+                    
                     // Displays the mood labels
                     HStack(spacing: 10) {
                         ForEach(moodEmojis.keys.sorted(), id: \.self) { mood in
@@ -131,9 +131,9 @@ struct MoodChartsView: View {
                             }
                         }
                     }
-
+                    
                     Spacer()
-
+                    
                 }
                 .padding(.horizontal) // add horizontal padding here to prevent overlap with the NavigationView
                 .frame(maxWidth: .infinity) // expand the frame to the full width of the screen

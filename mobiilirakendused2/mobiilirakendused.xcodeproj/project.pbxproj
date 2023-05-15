@@ -42,13 +42,13 @@
 		3A16D0B42A0D086B00F32808 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		3A16D0B52A0D086C00F32808 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		3A16D0B82A0D3CAE00F32808 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3A25BC9729B754BF005F7823 /* mobiilirakendused.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = mobiilirakendused.app; path = "/Users/pille.allvee/Documents/GitHub/mobiilirakendused/mobiilirakendused2/build/Debug-iphoneos/mobiilirakendused.app"; sourceTree = "<absolute>"; };
 		3A25BC9A29B754BF005F7823 /* mobiilirakendusedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mobiilirakendusedApp.swift; sourceTree = "<group>"; };
 		3A25BC9C29B754BF005F7823 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3A25BC9E29B754C3005F7823 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A25BCA129B754C3005F7823 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		3A25BCA729B754C3005F7823 /* mobiilirakendusedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = mobiilirakendusedTests.xctest; path = "/Users/pille.allvee/Documents/GitHub/mobiilirakendused/mobiilirakendused2/build/Debug-iphoneos/mobiilirakendusedTests.xctest"; sourceTree = "<absolute>"; };
-		3A25BCB129B754C3005F7823 /* mobiilirakendusedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = mobiilirakendusedUITests.xctest; path = "/Users/pille.allvee/Documents/GitHub/mobiilirakendused/mobiilirakendused2/build/Debug-iphoneos/mobiilirakendusedUITests.xctest"; sourceTree = "<absolute>"; };
+		3A2890772A126DFC0080FD9B /* mobiilirakendused.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mobiilirakendused.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A2890782A126DFC0080FD9B /* mobiilirakendusedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = mobiilirakendusedTests.xctest; path = "/Users/pille.allvee/Documents/GitHub/mobiilirakendused/mobiilirakendused2/build/Debug-iphoneos/mobiilirakendusedTests.xctest"; sourceTree = "<absolute>"; };
+		3A2890792A126DFC0080FD9B /* mobiilirakendusedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = mobiilirakendusedUITests.xctest; path = "/Users/pille.allvee/Documents/GitHub/mobiilirakendused/mobiilirakendused2/build/Debug-iphoneos/mobiilirakendusedUITests.xctest"; sourceTree = "<absolute>"; };
 		3A2F203D29F1715400C11504 /* MoodChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodChartsView.swift; sourceTree = "<group>"; };
 		3A5DF72029C476F0004CEF89 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		3A5DF72429C48879004CEF89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -98,6 +98,7 @@
 			children = (
 				3A25BC9929B754BF005F7823 /* mobiilirakendused */,
 				3A16D0B32A0D086B00F32808 /* Frameworks */,
+				3A2890772A126DFC0080FD9B /* mobiilirakendused.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -146,7 +147,7 @@
 				3A16D0B12A0BA90800F32808 /* SwiftUICharts */,
 			);
 			productName = mobiilirakendused;
-			productReference = 3A25BC9729B754BF005F7823 /* mobiilirakendused.app */;
+			productReference = 3A2890772A126DFC0080FD9B /* mobiilirakendused.app */;
 			productType = "com.apple.product-type.application";
 		};
 		3A25BCA629B754C3005F7823 /* mobiilirakendusedTests */ = {
@@ -164,7 +165,7 @@
 			);
 			name = mobiilirakendusedTests;
 			productName = mobiilirakendusedTests;
-			productReference = 3A25BCA729B754C3005F7823 /* mobiilirakendusedTests.xctest */;
+			productReference = 3A2890782A126DFC0080FD9B /* mobiilirakendusedTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		3A25BCB029B754C3005F7823 /* mobiilirakendusedUITests */ = {
@@ -182,7 +183,7 @@
 			);
 			name = mobiilirakendusedUITests;
 			productName = mobiilirakendusedUITests;
-			productReference = 3A25BCB129B754C3005F7823 /* mobiilirakendusedUITests.xctest */;
+			productReference = 3A2890792A126DFC0080FD9B /* mobiilirakendusedUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
