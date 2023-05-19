@@ -11,36 +11,29 @@ class Mood: Identifiable, Codable {
         formatter.dateFormat = "MM/dd/yyyy"
         return formatter.string(from: date)
     }
-    
+
     init(mood: String, image: UIImage?, date: Date) {
         self.id = UUID()
         self.mood = mood
-        
-        
         self.image = image
         self.date = date
     }
-    
-    
-    // encodes the mood object as JSON.
+
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(mood, forKey: .mood)
-        
         try container.encode(date, forKey: .date)
         
         if let image = image, let imageData = image.pngData() {
             try container.encode(imageData, forKey: .image)
         }
     }
-    
-    //decodes a mood object from JSON.
+
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(UUID.self, forKey: .id)
         mood = try container.decode(String.self, forKey: .mood)
-        
         date = try container.decode(Date.self, forKey: .date)
         
         if let imageData = try container.decodeIfPresent(Data.self, forKey: .image) {
@@ -57,27 +50,27 @@ class Mood: Identifiable, Codable {
 }
 
 struct ContentView: View {
-    let moodColors = ["😄": Color.green, "😊": Color.yellow, "😔": Color.gray, "😢": Color.blue, "🤯": Color.pink, "👍": Color.orange ]
+    let moodColors = [
+        "😄": Color.green,
+        "😊": Color.yellow,
+        "😔": Color.gray,
+        "😢": Color.blue,
+        "🤯": Color.pink,
+        "👍": Color.orange
+    ]
     
     @State var selectedMood = ""
     @State var moodHistory: [Mood] = []
     @State var showImagePicker = false
     @State private var isLoggedIn = false
-    
-    //appstorage wrapper for the mood history data
+
     @AppStorage("moodHistory") var moodHistoryData: Data?
-    
-    
-    
-    
-    
+
     let columns = [
         GridItem(.flexible(), spacing: 16),
         GridItem(.flexible(), spacing: 16)
     ]
-    
-    
-    //checks if any saved mood history data, then decodes it, and assigns it to a State variable. If no saved data, it initializes an empty array as the initial value.
+
     init() {
         if let data = moodHistoryData {
             let decoder = JSONDecoder()
@@ -88,8 +81,7 @@ struct ContentView: View {
             self._moodHistory = State(initialValue: [])
         }
     }
-    
-    //creates new Mood object using the selectedMood, image, date. Appends it to the moodHistory array and encodes to JSON. Encoded data is stored in the moodHistoryData property using @AppStorage.
+
     func saveMood(withImage image: UIImage?) {
         let mood = Mood(mood: selectedMood, image: image, date: Date())
         self.moodHistory.append(mood)
@@ -97,11 +89,9 @@ struct ContentView: View {
             self.moodHistoryData = encoded
         }
     }
-    //
-    
+
     var body: some View {
         if isLoggedIn {
-            // Show rest of the app
             TabView {
                 VStack {
                     Text("How are you feeling?")
@@ -133,9 +123,7 @@ struct ContentView: View {
                         }
                     }
                     .padding([.leading, .bottom, .trailing], 25.0)
-                    
-                    
-                    
+
                     Button(action: {
                         self.showImagePicker = true
                     }) {
@@ -157,7 +145,7 @@ struct ContentView: View {
                     Image(systemName: "plus.circle.fill")
                     Text("New Mood")
                 }
-                
+
                 VStack {
                     ScrollView {
                         LazyVGrid(columns: columns, spacing: 16) {
@@ -172,8 +160,7 @@ struct ContentView: View {
                                                 .aspectRatio(contentMode: .fit)
                                                 .frame(width: 50, height: 50)
                                         }
-                                        
-                                        
+
                                         Text("\(mood.formattedDate)")
                                             .font(.system(size: 12))
                                     }
@@ -186,10 +173,10 @@ struct ContentView: View {
                                     }
                                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
                                     .padding(8)
-                                    
+
                                 }
                                 .frame(height: 100)
-                                
+
                             }
                         }
                         .padding()
@@ -199,37 +186,32 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "clock.fill")
                     Text("Mood History")
-                    
+
                 }
-                
+
                 PersonalDataView()
                     .tabItem {
                         Image(systemName: "person.fill")
                         Text("Personal Data")
                     }
-                
+
                 MoodChartsView(moodHistory: moodHistory)
                     .tabItem {
                         Image(systemName: "chart.line.uptrend.xyaxis")
                         Text("Summary")
                     }
-                
+
             }
         } else {
             LoginView(isLoggedIn: $isLoggedIn)
         }
     }
-    
-    
-    
+
     func deleteMood(_ mood: Mood) {
         if let index = moodHistory.firstIndex(where: { $0.id == mood.id }) {
             moodHistory.remove(at: index)
         }
     }
-    
-    
-    
     
     struct ContentView_Previews: PreviewProvider {
         static var previews: some View {

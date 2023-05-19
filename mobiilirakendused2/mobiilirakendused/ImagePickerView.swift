@@ -12,7 +12,7 @@ struct ImagePickerView: UIViewControllerRepresentable {
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePickerView>) -> UIImagePickerController {
         let picker = UIImagePickerController()
         //picker.sourceType = .camera // camera
-        picker.sourceType = .photoLibrary// gallery
+        picker.sourceType = .photoLibrary // gallery
         
         picker.delegate = context.coordinator
         return picker
@@ -29,7 +29,7 @@ struct ImagePickerView: UIViewControllerRepresentable {
             self.parent = parent
         }
         
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
             if let image = info[.originalImage] as? UIImage {
                 parent.onImageSelected(image)
             }
