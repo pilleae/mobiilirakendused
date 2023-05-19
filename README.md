@@ -20,7 +20,7 @@ Mood Tracker is an iOS application that allows users to track their mood over ti
 - Click on the "Swift Packages" tab.
 - Click on the "+" button.
 - Enter the package repository URL for each dependency and click "Next":
-- SwiftUiCharts: https://github.com/AppPear/ChartView
+- SwiftUiCharts: [https://github.com/willdale/SwiftUICharts](https://github.com/willdale/SwiftUICharts)
 - UserNotifications: https://github.com/apple/swift-package-manager.git
 - UserNotificationsUI: https://github.com/apple/swift-package-manager.git
 - Choose the package version you want to install and click "Next".
